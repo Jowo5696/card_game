@@ -1,0 +1,176 @@
+%{{{ Formatierung
+
+\documentclass[a4paper,12pt]{article}
+
+\usepackage{physics_notetaking}
+
+%%% dark red
+%\definecolor{bg}{RGB}{60,47,47}
+%\definecolor{fg}{RGB}{255,244,230}
+%%% space grey
+%\definecolor{bg}{RGB}{46,52,64}
+%\definecolor{fg}{RGB}{216,222,233}
+%%% purple
+%\definecolor{bg}{RGB}{69,0,128}
+%\definecolor{fg}{RGB}{237,237,222}
+%\pagecolor{bg}
+%\color{fg}
+
+\newcommand{\td}{\,\text{d}}
+\newcommand{\RN}[1]{\uppercase\expandafter{\romannumeral#1}}
+\newcommand{\zz}{\mathrm{Z\kern-.3em\raise-0.5ex\hbox{Z} }}
+\newcommand{\id}{1\kern-.258em1}
+
+\newcommand\inlineeqno{\stepcounter{equation}\ {(\theequation)}}
+\newcommand\inlineeqnoa{(\theequation.\text{a})}
+\newcommand\inlineeqnob{(\theequation.\text{b})}
+\newcommand\inlineeqnoc{(\theequation.\text{c})}
+
+\newcommand\inlineeqnowo{\stepcounter{equation}\ {(\theequation)}}
+\newcommand\inlineeqnowoa{\theequation.\text{a}}
+\newcommand\inlineeqnowob{\theequation.\text{b}}
+\newcommand\inlineeqnowoc{\theequation.\text{c}}
+
+\renewcommand{\refname}{Source}
+\renewcommand{\sfdefault}{phv}
+%\renewcommand*\contentsname{Contents}
+
+\pagestyle{fancy}
+
+\sloppy
+
+\numberwithin{equation}{section}
+
+%}}}
+
+\begin{document}
+
+%{{{ Titelseite
+
+\title{}
+\author{}
+\maketitle
+\pagenumbering{gobble}
+
+%}}}
+
+\newpage
+
+%{{{ Inhaltsverzeichnis
+
+\fancyhead[L]{\thepage}
+\fancyfoot[C]{}
+\pagenumbering{arabic}
+
+\tableofcontents
+
+%}}}
+
+\newpage
+
+%{{{
+
+\fancyhead[R]{\leftmark\\\rightmark}
+
+\section{Regelwerk}
+\subsection{Ziel}
+Das Spiel ist gewonnen, wenn man der letzte Überlebende ist.
+Man verliert, sobald die HP des Spielers auf 0 gefallen sind.
+
+\subsection{Karten}
+Der Wert einer Karte ist ihre Augenzahl.
+Für Bildkarten gilt: J: 11, Q: 12, K: 13, A: 14.
+Ihr Wert ist simultan Atk und Def.
+Wird mit einer Karte angegriffen wird der Atk Wert verwendet; wird mit einer Karte verteidigt wird der Def Wert verwendet.
+Dies ist wichtig für z.B.\ die Perks des Imperators.
+Es gibt maximal 10 Handkarten: 1 Imperator, 5 Angreifer und 4 Buffs.
+Bei jedem Raid wird abwechselnd eine Karte den Angreifern und dann den Buffs hinzugefügt (man startet mit 1 Imperator und 1 Angreifer).
+
+\subsubsection{Imperator}
+Der Imperator ist die Karte, die es als Spieler zu beschützen gilt.
+Seine HP sind 2x der Wert der Karte.
+Sinken die HP des Imperators auf 0, so verliert der Spieler ein Leben.
+Sinken die Leben des Spielers auf 0, so verliert er das Spiel.
+Der Imperator gibt je nach Farbe Perks: +2 Atk (schwarz), +2 Def (rot).
+
+\subsubsection{Angreiferkarten}
+Angreiferkarten sind die Karten, mit denen Spieler andere Spieler angreifen können.
+Sie werden selbst von anderen Spieler als Angriffsziel verwendet.
+Es ist möglich mit roten und schwarzen Karten anzugreifen.
+
+\subsubsection{Buffkarten}
+Buffkarten sind die Karten, mit denen ein Spieler eine bereits angegriffene Angreiferkarte verteidigen kann (hier sind nur rote Karten zulässig), oder eine eine bereits angreifende Angreiferkarte verstärken kann (hier sind nur schwarze Karten zulässig).
+Buffkarten können nicht selbst als Angriffsziel verwendet werden und können nicht selbst angreifen.
+
+\subsubsection{Schwarze Karten}
+Schwarze Karten sind Atk Karten.
+Sie bekommen den schwarzen Imperator Perk von +2 Atk, wenn sie als Angriff gespielt werden.
+Schwarze Buffkarten dürfen nur zum Angriff verstärken und nicht zum verteidigen verwendet werden.
+
+\subsubsection{Rote Karten}
+Rote Karten sind Def Karten.
+Sie bekommen den roten Imperator Perk von +2 Def, wenn sie als Verteidigung gespielt werden.
+Rote Buffkarten dürfen nur zum Verteidigen und nicht zum Angriff verstärken verwendet werden.
+
+\subsection{Ablauf}
+\subsubsection{Vor dem Spiel}
+Zu Beginn werden zwei Karten an jeden Spieler ausgeteilt.
+Eine Karte ist dabei der Imperator, die andere Karte ist ein Angreifer.
+
+\subsubsection{Schlacht}
+In der Schlacht kämpfen die Spieler gegeneinander.
+Es gibt keine Reihenfolge, jeder Spieler darf jeden Spieler angreifen.
+Jeder Spieler darf jeden anderen Spieler so oft angreifen, wie er will, allerdings darf ein Spieler erst dann wieder angegriffen werden, wenn er eine Aktion getätigt hat (es ist also möglich, in einer Runde nur ein einziges mal angegriffen zu werden, sollte man selbst keine Aktion spielen).
+Zudem darf eine Angreiferkarte nur von einem einzigen Spieler angegriffen werden ($\geq $2 vs 1 ist also nicht gegen eine einzige Karte möglich).
+Eine Aktion kann das Angreifen einer gegnerischen Karte, das Buffen einer eigenen Karte, oder das Verteidigen einer eigenen Karte sein.\\\\
+\textbf{Angriff}\\
+Angreifen bedeutet, dass ein Spieler mit einer seiner Angreiferkarten gegen eine andere Angreiferkarte sticht.
+Der Atk Wert der Angreiferkarte sticht gegen den Def Wert der Verteidigerkarte (insofern wichtig, als dass der schwarze oder rote Imperatorperk wirken kann.).
+Der Angegriffene Spieler darf diesen Angriff mit einer Buffkarte verteidigen (hier wird der Def Wert verwendet).
+Der Angreifer darf daraufhin seinen Angriff auch mit einer Buffkarte verstärken (hier wird der Atk Wert verwendet).
+Der Spieler der den Stich gewonnen hat, darf sich beliebige Karten nehmen, die der Anzahl gespielter Karten entsprechen (also 1 oder 2), nehmen (es ist also möglich seine Angreifer-- und Buffkarten mit denen eines Gegners zu tauschen).
+Man darf aus einer Schlacht nicht mit mehr oder weniger Handkarten herauskommen.
+Die getauschten Karten kommen dann an die Plätze, auf denen die ursprünglichen Karten lagen.
+Die restlichen Karten erhält der, der den Stich verloren hat.\\\indent
+Wird eine schwarze Karte eines Spielers angegriffen, ist es ihm möglich diesen Angriff auf den angreifenden Spieler zu überführen, sollte der Basiswert (also ohne Buffs oder Perks) der angegriffenen Karte höher sein, als der des Angreifers.
+Gleiches gilt für rot gegen rot.
+Falls zwei Spieler die gleiche Karte eines Dritten angreifen wollen, gilt wieder die Regel des Basiswerts, nur dass hier erst zwischen den Angreifern und dann zwischen dem Angreifer und dem Verteidiger verglichen wird.
+Sollten beide Angreifer die gleichen Basiswerte haben, darf der Verteidiger entscheiden.
+Sollte mit einer roten Karte eine schwarze Karte angegriffen werden, darf der Angriff auf den angreifenden Spieler überführt werden.\\\indent
+Gewinnt ein Angreifer den Stich, so wirkt der überschüssige Schaden auf den Imperator.
+Die HP des Imperators sind nicht Rundenübergreifend.
+Es kann also durch Imperatorwechsel wiederhergestellt werden (die alte Imperatorkarte kann nicht durch hin und zurücktauschen erneuert werden).
+Falls der Imperator dadurch stirbt und der Spieler ein Leben verliert, verfällt verbleibender überschüssiger Schaden.
+\\\\
+Will kein Spieler mehr eine Aktion durchführen, so werden die Stiche ausgewertet.
+Nach der Auswertung geht es über in die nächste Phase.
+
+\subsubsection{Raid}
+Beim Raid werden 2x Anzahl der Spieler an Karten in die Mitte ausgelegt.
+Der Spieler mit den wenigsten HP darf zuerst eine Karte in der Mitte mit seinen Angreiferkarten angreifen (die Mitte greift nicht zurück an und kann sich auch nicht verteidigen).
+Gewinnt er den Stich (ob direkt oder in der zweiten Runde mit Buff), so darf er diese Karte gegen eine seiner Karten eintauschen oder, falls noch nicht geschehen, in seine Hand aufnehmen, um die totale Anzahl an Karten um genau 1 zu erhöhen.
+Dabei ist die Reihenfolge von Angreiferkarte, Buff, Angreiferkarte, Buff usw.\ zu beachten.
+Es wird nach aufsteigenden HP in die Mitte angegriffen.
+Die Karten die, wenn kein Spieler mehr etwas angreifen möchte, noch in der Mitte liegen, werden aus dem Spiel genommen.
+Ist der Stapel für die Karten in der Mitte leer, wird dieser neu gemischt.
+
+\subsubsection{Sortieren}
+Vor der nächsten Schlacht dürfen die Spieler ihre Karten sortieren, also Imperator, Angreifer-- und Buffkarten vertauschen, bis ihnen ihre Hand gefällt.
+Spieler dürfen auch maximal eine Karte pro Sortieren untereinander tauschen, sofern beide Spieler tauschen wollen.
+Nach der Sortierphase geht es wieder über zur Schlacht.
+
+\newpage
+\section{Datenblatt}
+
+\newpage
+\section{todo / ideas}
+\begin{enumerate}[label=--]
+        \item review: zu viel gerechnet; spiel kann durchgerechnet werden; glückselement wird gebraucht
+        \item idea: low karten haben krasse imperator perks
+        \item idea: imperator ist (16 - wert) als perk
+        \item idea: atk karte bekommt +x atk und +0 def; def karte bekommt +0 atk und +x def
+\end{enumerate}
+
+%}}}
+
+\end{document}
